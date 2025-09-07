@@ -194,18 +194,13 @@ LIMIT 50
   </tr>
 
 
-</tbody>
-
-
 </tbody>  
 
 We decided to focus on his translations, which are a very important part of his literary output. After finding which of Nabokov's translations appear on Wikidata, we decided to focus on his translation of "Alice's Adventures ni Wonderland". We noticed that it missed relevant information, namely <b>publisher, place of publication, </b> and <b> illustrator </b>. We used LLM to find the missing information, and to create RDF triples representing that information.
           
          
-        
+    <h2 style="margin-top: 60px;">QUERIES</h2>
 
-
-  <h2 style="margin-top: 60px;">QUERIES</h2>
 
   <table>
     <thead>
@@ -238,194 +233,7 @@ Would you like me to also compare Nabokov’s translation choices (for instance,
  </td>
  </tr>
 
-      <table>
-        
-    <br>  Both gave us correct and synthetic information regarding the place of publication and the publisher, but two different answers regarding the illustrator. We checked an external source (Wikipedia), and found that the correct answer is <b> Serge Chubine Q4185589 (alias Sergei Zalshupin) </b> . This is an example of an AI <b> hallucination. </b>  
-        
-        </br>
-    <thead>
-      <tr>
-        <th style="width: 34%;">Question</th>
-        <th style="width: 33%;">ChatGPT</th>
-        <th style="width: 33%;">Gemini</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          
-<br> 
-<br>
-FEW-SHOT PROMPTING
- </td>
-        <td>
-          
-        </td>
-        <td>
-          
-        </td>
-      </tr>
-      
-      <tr><td></td><td></td><td></td></tr>
-    </tbody>
-  </table>
-
-</main>
-</body>
-</html>    nav a:hover {
-      text-decoration: underline;
-    }
-
-    h1 {
-      font-size: 16px;
-      margin: 0;
-    }
-
-    main {
-      padding: 100px 20px 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    h2 {
-      color: #2e7d32;
-      margin-bottom: 10px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-      table-layout: fixed;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      vertical-align: top;
-      word-wrap: break-word;
-    }
-
-    th {
-      background: #f0f0f0;
-      text-align: left;
-    }
-
-    td pre {
-      white-space: pre-wrap;
-      font-family: monospace;
-      font-size: 14px;
-      margin: 0;
-    }
-
-    iframe {
-      margin-top: 10px;
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <h1>KE4H PROJECT</h1>
-  <nav>
-    <a href="index.html">Main Page</a>
-    <a href="Renata_page.html">Renata's part</a>
-    <a href="Olesia_page.html">Olesia's part</a>
-    <a href="Nina_page.html">Cristiana's part</a>
-    <a href="Results.html">Results</a>
-  </nav>
-</header>
-
-<main>
-  <h2>GAP 2: Аня в стране чудес (Q108527991)</h2>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Description of the Query</th>
-        <th>SPARQL Query</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-We ran a query to see all items with the property “translator” (P655) and object “Vladimir Nabokov” (Q36591) 
-         
-          </div>
-        </td>
-        <td>
-<pre>
-SELECT ?item ?itemLabel
-WHERE { 
-?item wdt:P655 wd:Q36591
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en". } 
-}
-</pre> 
-
-        </td>
-
-  
-<tr>
-    <td>
-    <br> We ran a query to retrieve information about “place of publication” (P291), “illustrator” (P110) and “publisher” (P123) for all items that have the property “edition or translation of” (629) and value “Alice’s Adventures in Wonderland” (Q92640). </br>
-      <br> We used the keyword OPTIONAL so the results would include items that didn’t satisfy the requests about publisher, place, and illustrator. </br>
-    </td>
-    <td>
-<pre>
-SELECT ?item ?itemLabel ?publisher ?publisherLabel ?placeofpublication ?placeofpublicationLabel ?illustrator ?illustratorLabel
-WHERE {
-  ?item wdt:P629 wd:Q92640 .   
-  OPTIONAL { ?item wdt:P123 ?publisher .}  
-  OPTIONAL { ?item wdt:P291 ?placeofpublication .}  
-  OPTIONAL { ?item wdt:P110 ?illustrator .}  
-SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-}
-ORDER BY DESC (?itemLabel)
-LIMIT 50
-
-</pre>
-    </td>
-  </tr>
-</tbody>  
-
-We decided to focus on his translations, which are a very important part of his literary output. After finding which of Nabokov's translations appear on Wikidata, we decided to focus on his translation of "Alice's Adventures ni Wonderland". We noticed that it missed relevant information, namely <b>publisher, place of publication, </b> and <b> illustrator </b>. We used LLM to find the missing information, and to create RDF triples representing that information.
-          
-         
-        
-
-
-  <h2 style="margin-top: 60px;">QUERIES</h2>
-
-  <table>
-    <thead>
-      <tr>
-        <th style="width: 34%;">Question</th>
-        <th style="width: 33%;">ChatGPT</th>
-        <th style="width: 33%;">Gemini</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-Where was Nabokov's translation of Alice in Wonderland published, by what publisher and who was the illustrator?<br>
-        
-      </td>
-        <td>
-         <br>  Vladimir Nabokov’s Russian translation of Alice’s Adventures in Wonderland was published in <b> Berlin in 1923</b> under the title “Аня в стране чудес” (Anya v strane chudes). </br>
-      <br> •	Publisher: <b> Gamaiun (Гамаюн)</b>, a Russian émigré press in Berlin. </br>
-      <br> •	Illustrations: by <b> Sergey Sudeikin </b>, the Russian painter and set designer associated with the Ballets Russes. </br>
-      <br>
-Would you like me to also compare Nabokov’s translation choices (for instance, how he adapted puns and names) with Carroll’s original?
-    </br>
-        </td>
-        <td>
-        Vladimir Nabokov's translation of Alice in Wonderland, titled Ania v strane chudes ("Anya in Wonderland"), was first published in <b> Berlin in 1923. </b>
-          <br>
-          The publisher was the Russian émigré publishing house <b> Gamaiun. </b> </br>
-         <br> The illustrations were by <b> Sergei Aleksandrovich Zalshupin </b>, a Russian émigré artist and book illustrator. </br>
-
- </td>
- </tr>
+<h2 style="margin-top: 60px;">LLM PROMPTING</h2>
 
       <table>
         
