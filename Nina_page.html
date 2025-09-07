@@ -107,14 +107,14 @@
   <h2>GAP 3 – White émigré (Q152538)</h2>
 
   <p>
-    We noticed that the Wikidata profile makes no mention of one of the most important events of his life: <b> fleeing Russia during when he was 19 years old during the Civil War. </b> This specific type of emigration, which is called <b> “White emigration”</b>, influenced him and his work for the rest of his life, therefore it is very relevant information. We used LLm tools to confirm this, then used SPARQL queries to figure out how to better express this information. Finally we used ChatGPT to generate the correct RDF triples. 
+    We noticed that the Wikidata profile makes no mention of one of the most important events of his life: <b> fleeing Russia during when he was 19 years old during the Civil War. </b> This specific type of emigration, which is called <b> “White emigration”</b>, influenced him and his work for the rest of his life, therefore it is very relevant information. We used LLM tools to confirm this, then used SPARQL queries to figure out how to better express this information. Finally we used ChatGPT to generate the correct RDF triples. 
   </p>
 
   <!-- Moved LLM PROMPTING section here -->
   <h3 style="margin-top: 60px;">LLM PROMPTING</h3>
 
   <p>
-   First, we asked two LLMs what was the most significant event in Nabokov's life, using ZERO SHOT PROMPTING technique. 
+   First, we asked two LLMs what was the most significant event in Nabokov's life, using <b> ZERO SHOT PROMPTING </b> technique. Both were factually correct, but we preferred ChatGPT’s answer, since it was more detailed and offered multiple examples. 
   </p>
 
   <table>
@@ -175,82 +175,81 @@ While the exile from Russia fundamentally altered the course of his life and gav
     <tbody>
       <tr>
         <td>
-          We ran a query to see all items with the property “translator” (P655) and object “Vladimir Nabokov” (Q36591).
+         We ran a query to see all the items that have the property “subclass of” (P279) and object “russian emigration” (Q4400561), to figure out what QID to use. 
         </td>
         <td>
 <pre>
-SELECT ?item ?itemLabel
-WHERE { 
-  ?item wdt:P655 wd:Q36591
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "en". } 
+SELECT ?item ?itemLabel 
+WHERE 
+{
+ ?item wdt:P279 wd:Q4400561
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
+
 </pre>
         </td>
       </tr>
 
       <tr>
         <td>
-          We ran a query to retrieve information about “place of publication” (P291), “illustrator” (P110) 
-          and “publisher” (P123) for all items that have the property “edition or translation of” (P629) 
-          and value “Alice’s Adventures in Wonderland” (Q92640). 
-          <br>
-          We used the keyword OPTIONAL so the results would include items that didn’t satisfy the requests 
-          about publisher, place, and illustrator.
+         The most relevant result was "White emigre" (Q152538). We ran a query to see under which property this item is usually used, adding Q5 ("human") to avoid results like political movements, establishments, etc.
         </td>
         <td>
 <pre>
-SELECT ?item ?itemLabel ?publisher ?publisherLabel ?placeofpublication ?placeofpublicationLabel ?illustrator ?illustratorLabel
+SELECT DISTINCT ?item ?itemLabel 
 WHERE {
-  ?item wdt:P629 wd:Q92640 .   
-  OPTIONAL { ?item wdt:P123 ?publisher .}  
-  OPTIONAL { ?item wdt:P291 ?placeofpublication .}  
-  OPTIONAL { ?item wdt:P110 ?illustrator .}  
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item ?property1 wd:Q152538.
+  ?item ?property2 wd:Q5.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
-ORDER BY DESC (?itemLabel)
-LIMIT 50
+ORDER BY DESC(?item)
+LIMIT 100
+
+
 </pre>
         </td>
       </tr>
 
       <tr>
         <td>
-          We encountered another problem: the publisher, Gamaiun, doesn’t have a Wikidata profile. 
-          We ran a query to confirm this.
+       This query was fine, but it included a lot of Wikimedia categories, so we ran the same query adding a FILTER to exclude “instance of” (P31) “wikimedia category” (Q4167836).
         </td>
         <td>
 <pre>
 SELECT ?item ?itemLabel 
 WHERE {
-  ?item wdt:P31 wd:Q2085381 .        
-  ?item rdfs:label ?label .           
-  FILTER(REGEX(?label, "gamaiun", "i"))
+  ?item ?property1 wd:Q5.
+  ?item ?property2 wd:Q152538.
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836. }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
-LIMIT 50
+ORDER BY DESC(?item)
+LIMIT 100
+
 </pre>
         </td>
       </tr>
 
       <tr>
         <td>
-          To be sure, we asked an LLM to generate a query that would find any items that match the string “gamaiun”.
-          <br>
-          None of the results were publishing houses.
+        This gave us six examples of usage, but they all used different properties to express this relation, like “political movement”, so we ran another query to see which property was most common.
+          <p> We found that P793 ("significant event") was slightly more common. </p>
         </td>
         <td>
 <pre>
-SELECT ?item ?itemLabel WHERE {
-  SERVICE wikibase:mwapi {
-    bd:serviceParam wikibase:endpoint "www.wikidata.org" .
-    bd:serviceParam wikibase:api "EntitySearch" .
-    bd:serviceParam mwapi:search "gamaiun" .
-    bd:serviceParam mwapi:language "en" .
-    ?item wikibase:apiOutputItem mwapi:item .
-  }
+SELECT ?property ?propertyLabel 
+WHERE {
+VALUES ?item 
+  {wd:Q9336695 
+   wd:Q6429933 
+   wd:Q4524939 
+   wd:Q4139731 
+   wd:Q28359326 
+   wd:Q108041835}
+  ?item ?property wd:Q152538.
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
 }
-LIMIT 50
+
 </pre>
         </td>
       </tr>
