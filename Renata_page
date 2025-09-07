@@ -1,1 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Information on Х in Wikidata</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      margin: 0;
+      background-color: white;
+      color: #333;
+    }
 
+    header {
+      background-color: rgba(46, 125, 50, 0.9);
+      color: white;
+      padding: 8px 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    nav {
+      margin-top: 4px;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    main {
+      padding: 100px 20px 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+
+    th {
+      background: #f0f0f0;
+      text-align: left;
+    }
+
+    td pre {
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    iframe {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Enrichment of Wikidata Vladimir Nabokov information</h1>
+  <nav>
+    <a href="index.html">Main Page</a>
+    <a href="Renata_page.html">Renata's part</a>
+    <a href="Olesia_page.html">Olesia's part</a>
+    <a href="Nina_page.html">Cristiana's part</a>
+    <a href="Results.html">Results</a>
+  </nav>
+</header>
+
+<main>
+  <h2>SPARQL</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Description of the Query</th>
+        <th>SPARQL Query</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+We noticed that the object under “influenced by” (P737) is deprecated. On wikidata, a triple statement can be deprecated for a variety, such as being no longer true or having an unreliable source, such as this case. As a result, it doesn’t show up when you query it. 
+To be sure, we ran a query, comparing Nabokov’s information with that of a similar writer, Joseph Brodsky (Q862), to see which objects they have under the property “influenced by” (P737). We used the keyword OPTIONAL so the results would show up even if the triple pattern doesn’t exist. 
+          <br><br>RESULT:
+          <div style="max-width: 100%; overflow-x: auto; margin-top: 10px;">
+            <iframe style="width: 100%; max-width: 600px; height: 300px; border: none;"
+              src="<iframe style="width: 80vw; height: 50vh; border: none;" src="https://query.wikidata.org/embed.html#SELECT%20%3Fsubject%20%3FsubjectLabel%20%3FinfluencedBy%20%3FinfluencedByLabel%20%0AWHERE%0A%20%7B%20VALUES%20%3Fsubject%20%20%7B%20wd%3AQ36591%20wd%3AQ862%20%7D%20%20%0A%20OPTIONAL%20%7B%20%3Fsubject%20wdt%3AP737%20%3FinfluencedBy%20.%20%7D%0A%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%0AORDER%20BY%20%3FsubjectLabel%0ALIMIT%2050%0A" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>"
+              referrerpolicy="origin"
+              sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+          </div>
+        </td>
+        <td>
+<pre>
+SELECT ?subject ?subjectLabel ?influencedBy ?influencedByLabel 
+WHERE
+ { VALUES ?subject  { wd:Q36591 wd:Q862 }  
+ OPTIONAL { ?subject wdt:P737 ?influencedBy . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } }
+ORDER BY ?subjectLabel
+LIMIT 50
+__________________________________________________________________________________
+</pre>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          The second query retrieves castles and cathedrals located in Italy, optionally showing their Commons categories and types.
+          <br><br>RESULT:
+          <div style="max-width: 100%; overflow-x: auto;">
+            <iframe style="width: 100%; max-width: 600px; height: 300px; border: none;" 
+              src="https://query.wikidata.org/embed.html#SELECT%20DISTINCT%20%3Fitem%20%3FitemLabel%20%3FtypeLabel%20%3FcommonsCategory%20WHERE%20%7B%0A%20%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ23413.%20%20%23%20castles%0A%20%20%7D%0A%20%20UNION%0A%20%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ2977.%20%20%20%23%20cathedrals%0A%20%20%7D%0A%20%20%3Fitem%20wdt%3AP17%20wd%3AQ38.%20%20%20%20%20%20%20%23%20country%20%3D%20Italy%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP373%20%3FcommonsCategory.%20%7D%20%20%23%20Wikimedia%20Commons%20category%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP31%20%3Ftype.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%2Cit%22.%20%7D%0A%7D%0ALIMIT%2050" 
+              referrerpolicy="origin" 
+              sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+          </div>
+        </td>
+        <td>
+<pre>
+SELECT DISTINCT ?item ?itemLabel ?typeLabel ?commonsCategory WHERE {
+  {
+    ?item wdt:P31 wd:Q23413.  # castles
+  }
+  UNION
+  {
+    ?item wdt:P31 wd:Q2977.   # cathedrals
+  }
+  ?item wdt:P17 wd:Q38.       # country = Italy
+  OPTIONAL { ?item wdt:P373 ?commonsCategory. }  # Wikimedia Commons category
+  OPTIONAL { ?item wdt:P31 ?type. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it". }
+}
+LIMIT 50
+</pre>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          This query filters items labelled as "Teatro" or "Duomo" in Italian.
+          <br></br> RESULT:
+          <div style="max-width: 100%; overflow-x: auto;">
+          <iframe style="width: 100%; max-width: 600px; height: 300px; border: none;"
+          src="https://query.wikidata.org/embed.html#SELECT%20DISTINCT%20%3Fitem%20%3FitemLabel%20%3FtypeLabel%20WHERE%20%7B%0A%20%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ24354.%20%20%23%20theatres%0A%20%20%7D%0A%20%20UNION%0A%20%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ2977.%20%20%20%23%20cathedrals%0A%20%20%7D%0A%0A%20%20%3Fitem%20wdt%3AP17%20wd%3AQ38.%20%20%20%20%20%20%20%23%20country%20%3D%20Italy%0A%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP31%20%3Ftype.%20%7D%0A%0A%20%20%3Fitem%20rdfs%3Alabel%20%3Flabel%20.%0A%20%20FILTER%20(LANG(%3Flabel)%20%3D%20%22it%22)%0A%20%20FILTER(REGEX(%3Flabel%2C%20%22Teatro%7CDuomo%22%2C%20%22i%22))%0A%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0AORDER%20BY%20%3FitemLabel%0ALIMIT%2050%0A" 
+                      referrerpolicy="origin" 
+                      sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+        </td>
+        <td>
+<pre>
+SELECT DISTINCT ?item ?itemLabel ?typeLabel WHERE {
+  {
+    ?item wdt:P31 wd:Q24354.  # theatres
+  }
+  UNION
+  {
+    ?item wdt:P31 wd:Q2977.   # cathedrals
+  }
+
+  ?item wdt:P17 wd:Q38.       # country = Italy
+
+  OPTIONAL { ?item wdt:P31 ?type. }
+
+  ?item rdfs:label ?label .
+  FILTER (LANG(?label) = "it")
+  FILTER(REGEX(?label, "Teatro|Duomo", "i"))
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?itemLabel
+LIMIT 50
+</pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin-top: 60px;">PROMPTING TECHNIQUES</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 34%;">Question</th>
+        <th style="width: 33%;">ChatGPT</th>
+        <th style="width: 33%;">Gemini</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+        Who was the ruler when the Theatre of Marcellus was built? <br><br>
+        ZERO-SHOT PROMPTING
+      </td>
+        <td>
+          The Theatre of Marcellus was constructed during the late Roman Republic period. It was initiated by Julius Caesar and completed under Emperor Augustus.
+        </td>
+        <td>
+          The Theatre of Marcellus was begun by Julius Caesar, but it was completed and dedicated by Augustus in 13 BC. Augustus named the theatre in memory of his nephew, Marcus Claudius Marcellus.
+        </td>
+      </tr>
+      In the result of comparing the two answers from the LLMs it can be noted that they both give quite the same information. They both mention Julius Caesar as the initiator of the constuction, which indeed might be a fair point to be noted. The difference in answers lies in the additional information the LLMs provide. They both mention the approximate date (<i>the late Roman Republic period</i> – ChatGPT; <i>13 BC</i> – Gemini), and also Gemini adds information on the naming of the theatre. It was not the aim of the zero-shot prompting to retrieve this information, it is thus excessive.
+<br>
+      <table>
+    <thead>
+      <tr>
+        <th style="width: 34%;">Question</th>
+        <th style="width: 33%;">ChatGPT</th>
+        <th style="width: 33%;">Gemini</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Q: Who was the ruler when the Theatre of Marcellus was built?  
+A: The Theatre of Marcellus was constructed during the late Roman Republic, and it was completed under the rule of Julius Caesar and Augustus.
+
+Q: Who was the ruler when the Theatre of Pompey was built?  
+A: The Theatre of Pompey was built during the late Roman Republic, specifically commissioned by Pompey the Great.
+
+Q: Who was the ruler when the Roman Theatre of Saepinum was built?  
+A:
+<br> 
+<br>
+FEW-SHOT PROMPTING
+ </td>
+        <td>
+          The Roman Theatre of Saepinum was built during the reign of Emperor Augustus in the early 1st century AD.
+        </td>
+        <td>
+          The Roman Theatre of Saepinum was built during the Julio-Claudian period (early 1st century CE), under emperors like Augustus and Tiberius.
+        </td>
+      </tr>
+      
+      <tr><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+</main>
+</body>
+</html>
