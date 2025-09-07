@@ -223,75 +223,27 @@ WHERE {   ?item wdt:P31 wd:Q5 .
 ORDER BY DESC(?item)
 LIMIT 100
 
-
-
 </pre>
         </td>
       </tr>
 
-      <tr>
-        <td>
-       This query was fine, but it included a lot of Wikimedia categories, so we ran the same query adding a FILTER to exclude “instance of” (P31) “wikimedia category” (Q4167836).
-          
-           <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fitem%20%3FitemLabel%20%0AWHERE%20%7B%0A%20%20%3Fitem%20%3Fproperty1%20wd%3AQ5.%0A%20%20%3Fitem%20%3Fproperty2%20wd%3AQ152538.%0A%20%20FILTER%20NOT%20EXISTS%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ4167836.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0AORDER%20BY%20DESC(%3Fitem)%0ALIMIT%20100">RESULTS</a> </p> 
-        </td>
-        <td>
-<pre>
-SELECT ?item ?itemLabel 
-WHERE {
-  ?item ?property1 wd:Q5.
-  ?item ?property2 wd:Q152538.
-  FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836. }
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-}
-ORDER BY DESC(?item)
-LIMIT 100
-
-</pre>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-        This gave us six examples of usage, but they all used different properties to express this relation, like “political movement”, so we ran another query to see which property was most common.
-          
-           <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fproperty%20%3FpropertyLabel%20%0AWHERE%20%7B%0AVALUES%20%3Fitem%20%0A%20%20%7Bwd%3AQ9336695%20%0A%20%20%20wd%3AQ6429933%20%0A%20%20%20wd%3AQ4524939%20%0A%20%20%20wd%3AQ4139731%20%0A%20%20%20wd%3AQ28359326%20%0A%20%20%20wd%3AQ108041835%7D%0A%20%20%3Fitem%20%3Fproperty%20wd%3AQ152538.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D">RESULTS</a> </p> 
-          <p> We found that P793 ("significant event") was slightly more common. </p>
-         
-        </td>
-        <td>
-<pre>
-SELECT ?property ?propertyLabel 
-WHERE {
-VALUES ?item 
-  {wd:Q9336695 
-   wd:Q6429933 
-   wd:Q4524939 
-   wd:Q4139731 
-   wd:Q28359326 
-   wd:Q108041835}
-  ?item ?property wd:Q152538.
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-}
-
-</pre>
-        </td>
-      </tr>
     </tbody>
   </table>
 
-  <h2 style="margin-top: 60px;">RDF TRIPLES</h2>
+  
+   <h2 style="margin-top: 60px;">RDF TRIPLES</h2>
 
-  After deciding to use "significant even" (P793), we asked ChatGPT to generate an RDF triple of that statement, supplying it with the correct QIDs.  
-
-  <table>
-    <tbody>
-      <tr>
-        <td>
-          Vladimir Nabokov had the significant event of being a white emigre.
-        </td>
-        <td>
-       <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+ After choosing the relevant literary influences, we asked ChatGPt to generate RDF triples for these statementes, supplying it with the correct QIDs from the start. 
+  
+  
+ <table>
+  <tbody>
+    <tr>
+      <td>
+        Vladimir Nabokov was influenced by Alexander Pushkin.
+      </td>
+         <td colspan="2">
+        <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
 @prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
 @prefix p: &lt;http://www.wikidata.org/prop/&gt; .
 @prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
@@ -299,22 +251,80 @@ VALUES ?item
 @prefix pr: &lt;http://www.wikidata.org/prop/reference/&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 
-# Main statement: Nabokov has significant event White émigré
-wd:Q36591 wdt:P793 wd:Q152538 .
+# Main statement: Nabokov was influenced by Pushkin
+wd:Q36591 wdt:P737 wd:Q7200 .
 
-# Full statement with reference
-wd:Q36591 p:P793 [
-    ps:P793 wd:Q152538 ;
+# Full statement form with reference
+wd:Q36591 p:P737 [
+    ps:P737 wd:Q7200 ;
     prov:wasDerivedFrom [
-        pr:P248 wd:Q52 ;                             
-        pr:P813 "2025-09-04"^^xsd:date ;                 #Retrieval date
-        pr:P854 &lt;https://en.wikipedia.org/wiki/White_%C3%A9migr%C3%A9&gt;  # External source URL
+        pr:P248 wd:Q52 ;   # Source: Wikipedia (Q52 = English Wikipedia)
+        pr:P813 "2025-09-06"^^xsd:date ;   # Retrieval date
+        pr:P854 &lt;https://en.wikipedia.org/wiki/Vladimir_Nabokov&gt;  # External reference
     ]
 ] .</code></pre>
 
 
-    </tbody>
-  </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+       Vladimir Nabokov was influenced by Nikolai Gogol.
+      </td>
+      <td colspan="2">
+        <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+@prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
+@prefix p: &lt;http://www.wikidata.org/prop/&gt; .
+@prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
+@prefix prov: &lt;http://www.w3.org/ns/prov#&gt; .
+@prefix pr: &lt;http://www.wikidata.org/prop/reference/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# Main statement: Nabokov was influenced by Gogol
+wd:Q36591 wdt:P737 wd:Q43718 .
+
+# Full statement form with reference
+wd:Q36591 p:P737 [
+    ps:P737 wd:Q43718 ;
+    prov:wasDerivedFrom [
+        pr:P248 wd:Q52 ;   # Source: Wikipedia (Q52 = English Wikipedia)
+        pr:P813 "2025-09-06"^^xsd:date ;   # Retrieval date
+        pr:P854 &lt;https://en.wikipedia.org/wiki/Vladimir_Nabokov&gt;  # External reference
+    ]
+] .</code></pre>
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Vladimir Nabokov was influenced by Lev Tolstoy.
+      </td>
+      <td colspan="2">
+      <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+@prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
+@prefix p: &lt;http://www.wikidata.org/prop/&gt; .
+@prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
+@prefix prov: &lt;http://www.w3.org/ns/prov#&gt; .
+@prefix pr: &lt;http://www.wikidata.org/prop/reference/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# Main statement: Nabokov was influenced by Tolstoy
+wd:Q36591 wdt:P737 wd:Q7243 .
+
+# Full statement form with reference
+wd:Q36591 p:P737 [
+    ps:P737 wd:Q7243 ;
+    prov:wasDerivedFrom [
+        pr:P248 wd:Q52 ;   # Source: Wikipedia (Q52 = English Wikipedia)
+        pr:P813 "2025-09-06"^^xsd:date ;   # Retrieval date
+        pr:P854 &lt;https://en.wikipedia.org/wiki/Vladimir_Nabokov&gt;  # External reference
+    ]
+] .</code></pre>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
 </main>
 </body>
 </html>
