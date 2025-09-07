@@ -163,7 +163,10 @@ It is important to note that Nabokov held very strong opinions and was a harsh c
       </tr>
     </tbody>
   </table>
-  <!-- End of moved section -->
+
+ <p> While ChatGPT’s answer was concise and identified his key influences, it was also factually incorrect regarding Fitzgerald, whom Nabokov disliked. We preferred Gemini’s more detailed response, which also provided information about Nabokov’s contrarian opinions. </p>
+  <p> We decided to focus on <b> Pushkin, Gogol and Tolstoy</b>, his key influences. </p>
+
 
   <h2 style="margin-top: 60px;">QUERIES</h2>
 
@@ -177,19 +180,20 @@ It is important to note that Nabokov held very strong opinions and was a harsh c
     <tbody>
       <tr>
         <td>
-         We ran a query to see all the items that have the property “subclass of” (P279) and object “russian emigration” (Q4400561), to figure out what QID to use. 
+        To be sure the object was deprecated, we ran a query, comparing Nabokov’s information with that of a similar writer, Joseph Brodsky (Q862), to see which objects they have under the property “influenced by” (P737). We used the keyword OPTIONAL so the results would show up even if the triple pattern doesn’t exist.   
           
-          <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fitem%20%3FitemLabel%20%0AWHERE%20%0A%7B%0A%20%3Fitem%20wdt%3AP279%20wd%3AQ4400561%0A%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D">RESULTS</a> </p>
+          <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fsubject%20%3FsubjectLabel%20%3FinfluencedBy%20%3FinfluencedByLabel%20%0AWHERE%0A%20%7B%20VALUES%20%3Fsubject%20%20%7B%20wd%3AQ36591%20wd%3AQ862%20%7D%20%20%0A%20OPTIONAL%20%7B%20%3Fsubject%20wdt%3AP737%20%3FinfluencedBy%20.%20%7D%0A%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%0AORDER%20BY%20%3FsubjectLabel%0ALIMIT%2050%0A">RESULTS</a> </p>
  
         </td>
         <td>
 <pre>
-SELECT ?item ?itemLabel 
-WHERE 
-{
- ?item wdt:P279 wd:Q4400561
- SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-}
+SELECT ?subject ?subjectLabel ?influencedBy ?influencedByLabel 
+WHERE
+ { VALUES ?subject  { wd:Q36591 wd:Q862 }  
+ OPTIONAL { ?subject wdt:P737 ?influencedBy . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } }
+ORDER BY ?subjectLabel
+LIMIT 50
 
 </pre>
         </td>
@@ -197,21 +201,28 @@ WHERE
 
       <tr>
         <td>
-         The most relevant result was "White emigre" (Q152538). We ran a query to see under which property this item is usually used, adding Q5 ("human") to avoid results like political movements, establishments, etc.
+     An author’s influence on another author is sometimes expressed through other properties, such as “student of” (P1066), so we decided to run another query, to see which items are linked to the objects Alexander Pushkin (Q7200), Lev Tolstoy (Q43718) and Nikolai Gogol (Q7243) under any property.
+          <p> We added the P31 and Q5 to make sure that the results would be humans and not Wikipedia links or other items. </p>
           
-           <p> <a href="https://query.wikidata.org/embed.html#SELECT%20DISTINCT%20%3Fitem%20%3FitemLabel%20%0AWHERE%20%7B%0A%20%20%3Fitem%20%3Fproperty1%20wd%3AQ152538.%0A%20%20%3Fitem%20%3Fproperty2%20wd%3AQ5.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0AORDER%20BY%20DESC(%3Fitem)%0ALIMIT%20100">RESULTS</a> </p>
+           <p> <a href="https://query.wikidata.org/embed.html#SELECT%20DISTINCT%20%3Fitem%20%3FitemLabel%20%0AWHERE%20%7B%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ5%20.%0A%20%20%7B%20%3Fitem%20%3Fproperty%20wd%3AQ7200%20.%7D%0A%20%20UNION%20%20%0A%20%20%7B%20%3Fitem%20%3Fproperty%20wd%3AQ43718%20.%7D%0A%20%20UNION%0A%20%20%7B%20%3Fitem%20%3Fproperty%20wd%3AQ7243%20.%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0AORDER%20BY%20DESC(%3Fitem)%0ALIMIT%20100%0A">RESULTS</a> </p>
   
+          <p> We retrieved 81 results, and confirmed Nabokov wasn't among them. </p>  
+          
         </td>
         <td>
 <pre>
 SELECT DISTINCT ?item ?itemLabel 
-WHERE {
-  ?item ?property1 wd:Q152538.
-  ?item ?property2 wd:Q5.
+WHERE {   ?item wdt:P31 wd:Q5 .
+  { ?item ?property wd:Q7200 .}
+  UNION  
+  { ?item ?property wd:Q43718 .}
+  UNION
+  { ?item ?property wd:Q7243 .}
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
 ORDER BY DESC(?item)
 LIMIT 100
+
 
 
 </pre>
