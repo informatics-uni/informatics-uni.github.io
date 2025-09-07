@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Information on Х in Wikidata</title>
+  <title></title>
   <style>
     body {
       font-family: Georgia, serif;
@@ -99,20 +99,20 @@
 </header>
 
 <main>
-  <h2>IDENTIFYING THE GAPS</h2>
-
+  <h2>"Influenced by" gap</h2>
+We noticed that the object under “influenced by” (P737) is deprecated. On wikidata, a triple statement can be deprecated for a variety, such as being no longer true or having an unreliable source, such as this case. As a result, it doesn’t show up when you query it. 
+To be sure, we ran a query, comparing Nabokov’s information with that of a similar writer, Joseph Brodsky (Q862), to see which objects they have under the property “influenced by” (P737). We used the keyword OPTIONAL so the results would show up even if the triple pattern doesn’t exist. 
   <table>
     <thead>
       <tr>
-        <th>Description of the Query</th>
-        <th>SPARQL Query</th>
+        <th>-</th>
+        <th>-</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-We noticed that the object under “influenced by” (P737) is deprecated. On wikidata, a triple statement can be deprecated for a variety, such as being no longer true or having an unreliable source, such as this case. As a result, it doesn’t show up when you query it. 
-To be sure, we ran a query, comparing Nabokov’s information with that of a similar writer, Joseph Brodsky (Q862), to see which objects they have under the property “influenced by” (P737). We used the keyword OPTIONAL so the results would show up even if the triple pattern doesn’t exist. 
+
           <br><br>RESULT:
           <div style="max-width: 100%; overflow-x: auto; margin-top: 10px;">
             <iframe style="width: 100%; max-width: 600px; height: 300px; border: none;"
@@ -133,15 +133,9 @@ LIMIT 50
 </pre>
         </td>
       </tr>
-
-          Having identified this gap, we asked ChatGPT and Gemini what Nabokov’s main influences were, using a FEW SHOT PROMPTING technique, providing it examples to follow.  
-          <br><br>RESULT:
-          
-        
-
-
-  <h2 style="margin-top: 60px;">PROMPTING TECHNIQUES</h2>
-
+  
+          <br><br>
+<h2 style="margin-top: 60px;">PROMPTING TECHNIQUES</h2>
   <table>
     <thead>
       <tr>
@@ -153,6 +147,8 @@ LIMIT 50
     <tbody>
       <tr>
         <td>
+          FEW SHOT PROMPTING <br>
+          <br>
 A. Who were Joseph Brodsky's main literary influences?<br>
 Q: Anna Akhmatova, Marina Tsvetaeva, Osip Mandelstam, Robert Frost, W. H. Auden.<br>
 A. Who were Fyodor Dostoevsky's main literary influences?<br>
@@ -200,7 +196,6 @@ Sometimes, an author’s influence on another author is expressed through other 
           
 <br> 
 <br>
-FEW-SHOT PROMPTING
  </td>
         <td>
           
