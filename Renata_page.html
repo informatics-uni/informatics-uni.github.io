@@ -153,18 +153,35 @@ LIMIT 50
     <tbody>
       <tr>
         <td>
-        Who was the ruler when the Theatre of Marcellus was built? <br><br>
+       
+ <br><br>
         ZERO-SHOT PROMPTING
       </td>
         <td>
-          The Theatre of Marcellus was constructed during the late Roman Republic period. It was initiated by Julius Caesar and completed under Emperor Augustus.
+           ChatGPT said:
+Vladimir Nabokov’s main literary influences were:<br>
+•	Nikolai Gogol (he even wrote a book-length study of him and admired his linguistic play and grotesque humor).<br>
+•	Alexander Pushkin (especially Eugene Onegin, which Nabokov translated and commented on extensively).<br>
+•	Marcel Proust (in terms of memory, perception, and narrative fluidity).<br>
+•	James Joyce (wordplay, stream-of-consciousness, multilingual puns).<br>
+•	F. Scott Fitzgerald (Nabokov praised The Great Gatsby as a masterpiece of style).<br>
         </td>
         <td>
-          The Theatre of Marcellus was begun by Julius Caesar, but it was completed and dedicated by Augustus in 13 BC. Augustus named the theatre in memory of his nephew, Marcus Claudius Marcellus.
-        </td>
-      </tr>
-      In the result of comparing the two answers from the LLMs it can be noted that they both give quite the same information. They both mention Julius Caesar as the initiator of the constuction, which indeed might be a fair point to be noted. The difference in answers lies in the additional information the LLMs provide. They both mention the approximate date (<i>the late Roman Republic period</i> – ChatGPT; <i>13 BC</i> – Gemini), and also Gemini adds information on the naming of the theatre. It was not the aim of the zero-shot prompting to retrieve this information, it is thus excessive.
-<br>
+          Nabokov was influenced by a variety of writers and literary traditions. His most significant influences were:<br>
+•	Nikolai Gogol, whom he wrote a critical book about. Nabokov praised Gogol's use of imagery and his "rambling metaphors."<br>
+•	Alexander Pushkin, the founder of modern Russian literature. Nabokov saw Pushkin as the most revered figure in the Russian literary canon and wrote a four-volume translation and commentary of his novel Eugene Onegin.<br>
+•	Leo Tolstoy and Anton Chekhov, whom he admired and parodied in his own works.<br>
+•	James Joyce, whom Nabokov parodied and whose stream-of-consciousness style he referenced.<br>
+•	Edgar Allan Poe, to whom he alludes in his novel Lolita.<br>
+•	French authors like Gustave Flaubert, Marcel Proust, and François Rabelais.<br>
+•	Fairy tales, which provided a source of inspiration for novels like Lolita.
+ </td>
+ </tr>
+      While ChatGPT’s answer was concise and identified his key influences, it was also factually incorrect regarding Fitzgerald, whom Nabokov disliked. We preferred Gemini’s more detailed response, which also provided information about Nabokov’s contrarian opinions.
+We decided to focus on Pushkin, Gogol and Tolstoy, his key influences. 
+Sometimes, an author’s influence on another author is expressed through other properties, such as “student of” (P1066), so we decided to run another query, to see which items are linked to the objects Alexander Pushkin (Q7200), Lev Tolstoy (Q43718) and Nikolai Gogol (Q7243) under any property. We added the P31 and Q5 to make sure that the results would be humans and not Wikipedia links or other items. 
+
+    
       <table>
     <thead>
       <tr>
@@ -176,23 +193,16 @@ LIMIT 50
     <tbody>
       <tr>
         <td>
-          Q: Who was the ruler when the Theatre of Marcellus was built?  
-A: The Theatre of Marcellus was constructed during the late Roman Republic, and it was completed under the rule of Julius Caesar and Augustus.
-
-Q: Who was the ruler when the Theatre of Pompey was built?  
-A: The Theatre of Pompey was built during the late Roman Republic, specifically commissioned by Pompey the Great.
-
-Q: Who was the ruler when the Roman Theatre of Saepinum was built?  
-A:
+          
 <br> 
 <br>
 FEW-SHOT PROMPTING
  </td>
         <td>
-          The Roman Theatre of Saepinum was built during the reign of Emperor Augustus in the early 1st century AD.
+          
         </td>
         <td>
-          The Roman Theatre of Saepinum was built during the Julio-Claudian period (early 1st century CE), under emperors like Augustus and Tiberius.
+          
         </td>
       </tr>
       
