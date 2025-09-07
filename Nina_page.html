@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Gap 2</title>
+  <title>Gap 3</title>
   <style>
     body {
       font-family: Georgia, serif;
@@ -104,15 +104,64 @@
 </header>
 
 <main>
-  <h2>GAP 2: Аня в стране чудес (Q108527991)</h2>
+  <h2>GAP 3 – White émigré (Q152538)</h2>
 
   <p>
-    We decided to focus on his translations, which are a very important part of his literary output. 
-    After finding which of Nabokov's translations appear on Wikidata, we decided to focus on his 
-    translation of "Alice's Adventures in Wonderland". We noticed that it missed relevant information, 
-    namely <b>publisher, place of publication,</b> and <b>illustrator</b>. 
-    We used LLM to find the missing information, and to create RDF triples representing that information.
+    We noticed that the Wikidata profile makes no mention of one of the most important events of his life: <b> fleeing Russia during when he was 19 years old during the Civil War. </b> This specific type of emigration, which is called <b> “White emigration”</b>, influenced him and his work for the rest of his life, therefore it is very relevant information. We used LLm tools to confirm this, then used SPARQL queries to figure out how to better express this information. Finally we used ChatGPT to generate the correct RDF triples. 
   </p>
+
+  <!-- Moved LLM PROMPTING section here -->
+  <h3 style="margin-top: 60px;">LLM PROMPTING</h3>
+
+  <p>
+   First, we asked two LLMs what was the most significant event in Nabokov's life, using ZERO SHOT PROMPTING technique. 
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 34%;">Question</th>
+        <th style="width: 33%;">ChatGPT</th>
+        <th style="width: 33%;">Gemini</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>What was the most significant even in nabokov’s life?</td>
+        <td>
+         The most significant event in Vladimir Nabokov's life — both personally and artistically — is widely considered to be his emigration from Russia after the Bolshevik Revolution in 1919.
+<p>
+  🇷🇺➡🇪🇺➡🇺🇸 Why this was so significant: </p>
+          <p> <b> 1. Loss of Homeland and Identity: </b>
+Nabokov came from an aristocratic Russian family. His father was a liberal politician who opposed both the Tsar and the Bolsheviks. The Revolution forced the family to flee to Western Europe — first to Crimea, then England, then Germany and France. This exile deeply shaped Nabokov’s sense of loss, memory, and displacement, themes that recur throughout his work (especially in novels like The Gift, Pnin, and Speak, Memory). </p>
+          <p> <b> 2. Formation of His Literary Identity: </b>
+• As a result of exile, Nabokov became a trilingual writer: first writing in Russian, then English, and later translating his own work between the two.
+• His dual cultural identity gave his prose a unique richness and a kind of ironic detachment that became his hallmark. </p>
+          <p> <b> 3. Exile as Creative Fuel: </b>
+• His masterpiece memoir, Speak, Memory, revolves around this loss and transformation.
+• Many of his characters (e.g., in The Real Life of Sebastian Knight or Pnin) are émigrés or displaced intellectuals navigating alien landscapes — directly echoing his own experience. </p>
+
+          <p> <b> Honorable Mentions — Other Major Life Events:</b>
+<p> <b> • Marriage to Véra Slonim (1925): </b>She became his lifelong partner, translator, and manager. Their relationship was central to his personal and professional stability. </p>
+<p> <b> • Move to the U.S. (1940):</b> He found refuge from Nazi-occupied Europe and eventually became a professor at Cornell, where he wrote Lolita.
+<p> <b> • Publication of Lolita (1955):</b> This was his international breakthrough, securing his financial independence and literary fame.
+<p> <b> • Return to Europe (Montreux, Switzerland) in 1961):</b> He lived out the rest of his life in a hotel by Lake Geneva, enjoying the stability he lacked in earlier decades.
+
+<p> <b> Final Answer:</b>
+The emigration from Russia in 1919 was the most significant event in Nabokov’s life — it not only transformed his worldview but became the foundation of his literary identity and themes.
+
+        </td>
+        <td>
+         There are two events that are consistently cited as the most significant in Vladimir Nabokov's life, and their impact is intertwined:
+          <p><b>The Bolshevik Revolution and his family's subsequent exile from Russia:</b> Nabokov was born into a wealthy, aristocratic family in St. Petersburg and had a "perfect" and "cosmopolitan" childhood. The 1917 revolution and the family's flight from their homeland in 1919 meant the loss of their fortune, their home, and their culture. This exile profoundly shaped his art, making memory and the concept of "unreal estate" (the world of his childhood preserved in his mind) a central theme throughout his career. </p>
+          <p><b> The assassination of his father, Vladimir Dmitrievich Nabokov: </b> In 1922, while the family was living in Berlin, his father—a prominent liberal politician—was assassinated by right-wing reactionaries. The assassins were attempting to kill another man, and Nabokov's father was shot while shielding him. Although Nabokov publicly disclaimed any direct influence of this event on his work, the theme of a mistaken or senseless assassination appears prominently in his novels. </p>
+While the exile from Russia fundamentally altered the course of his life and gave him the subject matter for much of his writing, the death of his father was a deeply personal trauma that also resonated in his work. These two events, both stemming from the political turmoil of his time, stripped away his privileged world and forced him to become an exile who would later reinvent himself as a literary genius in a new language.
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- End of moved section -->
 
   <h2 style="margin-top: 60px;">QUERIES</h2>
 
@@ -208,96 +257,43 @@ LIMIT 50
     </tbody>
   </table>
 
-  
-  
-  
-  
-  
-  <h3 style="margin-top: 60px;">LLM PROMPTING</h3>
-
-  <p>
-    Both gave us correct and synthetic information regarding the place of publication and the publisher, 
-    but two different answers regarding the illustrator. We checked an external source (Wikipedia), and 
-    found that the correct answer is <b>Serge Chubine Q4185589 (alias Sergei Zalshupin)</b>. 
-    This is an example of an AI <b>hallucination.</b>
-  </p>
-  
-  
-  <table>
-    <thead>
-      <tr>
-        <th style="width: 34%;">Question</th>
-        <th style="width: 33%;">ChatGPT</th>
-        <th style="width: 33%;">Gemini</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Where was Nabokov's translation of Alice in Wonderland published, by what publisher and who was the illustrator?</td>
-        <td>
-          Vladimir Nabokov’s Russian translation of Alice’s Adventures in Wonderland was published in 
-          <b>Berlin in 1923</b> under the title “Аня в стране чудес” (Anya v strane chudes). 
-          <br>
-          • Publisher: <b>Gamaiun (Гамаюн)</b>, a Russian émigré press in Berlin. 
-          <br>
-          • Illustrations: by <b>Sergey Sudeikin</b>, the Russian painter and set designer associated with the Ballets Russes.
-        </td>
-        <td>
-          Vladimir Nabokov's translation of Alice in Wonderland, titled Ania v strane chudes ("Anya in Wonderland"), 
-          was first published in <b>Berlin in 1923</b>. 
-          <br>
-          The publisher was the Russian émigré publishing house <b>Gamaiun.</b> 
-          <br>
-          The illustrations were by <b>Sergei Aleksandrovich Zalshupin</b>, a Russian émigré artist and book illustrator.
-        </td>
-      </tr>
-    </tbody>
-  </table>
- 
-  
-  
-  
   <p> 
     We guided ChatGPT towards the correct answer using <b> CHAIN OF THOUGHT PROMPTING. </b>
   </p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>
-        <b> Q: </b>  Sergey Sudeikin was mainly a scenographer and not an illustrator, and he worked mainly in Paris, so could he have illustrated a book published in Berlin? Let's think step by step, considering all the Russian emigre illustrators that were active in Berlin in 1923. 
-      </td>
-      <td>
-       You’re absolutely right to be skeptical about Sergei Sudeikin. He was indeed primarily a scenographer and painter, based in Paris by the early 1920s, and there’s no evidence that he worked on Nabokov’s Alice in Berlin.
-<p> The illustrator of Nabokov’s 1923 Аня в стране чудес (Anya v strane chudes) was in fact <b>Sergei Aleksandrovich Zalshupin </b> (1898–1931), also known under the pseudonym Serg Choubine (Серж Шубин). </p>
-Here are the details step by step:
-        <p>
-          •	Publisher: Издательство Гамаюн (Gamayun), a Russian émigré press in Berlin. </p>
-        <p> •	Year: 1923. </p>
-<p> •	Illustrator: Sergei Zalshupin, a Russian émigré graphic artist and painter who was active in Berlin at the time (later moved to Paris, where he died young). </p>
-<p> •	Why not Sudeikin? Sudeikin was by then working mainly as a set designer in Paris (for Diaghilev’s Ballets Russes and later the Metropolitan Opera). He was not involved with Berlin publishing houses of the émigré community. </p>
-So the correct bibliographic entry is:
-Lewis Carroll (pseud. Charles Dodgson). Аня в стране чудес. Перевод В. В. Набокова. Берлин: Гамаюн, 1923. Иллюстрации Сергея Залшупина.
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          <b> Q: </b>  Sergey Sudeikin was mainly a scenographer and not an illustrator, and he worked mainly in Paris, so could he have illustrated a book published in Berlin? Let's think step by step, considering all the Russian emigre illustrators that were active in Berlin in 1923. 
+        </td>
+        <td>
+          You’re absolutely right to be skeptical about Sergei Sudeikin. He was indeed primarily a scenographer and painter, based in Paris by the early 1920s, and there’s no evidence that he worked on Nabokov’s Alice in Berlin.
+          <p> The illustrator of Nabokov’s 1923 Аня в стране чудес (Anya v strane chudes) was in fact <b>Sergei Aleksandrovich Zalshupin </b> (1898–1931), also known under the pseudonym Serg Choubine (Серж Шубин). </p>
+          Here are the details step by step:
+          <p>• Publisher: Издательство Гамаюн (Gamayun), a Russian émigré press in Berlin.</p>
+          <p>• Year: 1923.</p>
+          <p>• Illustrator: Sergei Zalshupin, a Russian émigré graphic artist and painter who was active in Berlin at the time (later moved to Paris, where he died young).</p>
+          <p>• Why not Sudeikin? Sudeikin was by then working mainly as a set designer in Paris (for Diaghilev’s Ballets Russes and later the Metropolitan Opera). He was not involved with Berlin publishing houses of the émigré community.</p>
+          So the correct bibliographic entry is:
+          Lewis Carroll (pseud. Charles Dodgson). Аня в стране чудес. Перевод В. В. Набокова. Берлин: Гамаюн, 1923. Иллюстрации Сергея Залшупина.
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
+  <h2 style="margin-top: 60px;">RDF TRIPLES</h2>
 
-      </td>
-    </tr>
-  </tbody>
-</table>
+  After creating a Wikidata entity for Gamaiun, we asked ChatGPt to generate RDF triples for these statementes, supplying it with the correct QIDs from the start.  
 
- <h2 style="margin-top: 60px;">RDF TRIPLES</h2>
-
- After creating a Wikidata entity for Gamaiun, we asked ChatGPt to generate RDF triples for these statementes, supplying it with the correct QIDs from the start.  
-<h2 style="margin-top: 60px;">RDF TRIPLES</h2>
-
-<table>
-  <tbody>
-    <tr>
-      <td>
-        Аня в стране чудес was published in Berlin.
-      </td>
-         <td colspan="2">
-        <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          Аня в стране чудес was published in Berlin.
+        </td>
+        <td colspan="2">
+<pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
 @prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
 @prefix p: &lt;http://www.wikidata.org/prop/&gt; .
 @prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
@@ -317,15 +313,14 @@ wd:Q108527991 p:P291 [
         pr:P854 &lt;https://en.wikipedia.org/wiki/Anya_v_strane_chudes&gt;  # External reference URL
     ]
 ] .</code></pre>
-
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Аня в стране чудес was published by Gamaiun.
-      </td>
-      <td colspan="2">
-        <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Аня в стране чудес was published by Gamaiun.
+        </td>
+        <td colspan="2">
+<pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
 @prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
 @prefix p: &lt;http://www.wikidata.org/prop/&gt; .
 @prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
@@ -345,14 +340,14 @@ wd:Q108527991 p:P123 [
         pr:P854 &lt;https://en.wikipedia.org/wiki/Anya_v_strane_chudes&gt;  # External reference URL
     ]
 ] .</code></pre>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Аня в стране чудес was illustrated by Serge Chubine.
-      </td>
-      <td colspan="2">
-        <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Аня в стране чудес was illustrated by Serge Chubine.
+        </td>
+        <td colspan="2">
+<pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
 @prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
 @prefix p: &lt;http://www.wikidata.org/prop/&gt; .
 @prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
@@ -372,10 +367,10 @@ wd:Q108527991 p:P110 [
         pr:P854 &lt;https://en.wikipedia.org/wiki/Anya_v_strane_chudes&gt;  # External reference URL
     ]
 ] .</code></pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </main>
 </body>
 </html>
