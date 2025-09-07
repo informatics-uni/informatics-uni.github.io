@@ -105,20 +105,18 @@ To be sure, we ran a query, comparing Nabokov’s information with that of a sim
   <table>
     <thead>
       <tr>
-        <th>-</th>
-        <th>-</th>
+        <th>RESULT</th>
+        <th>CODE</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
 
-          <br><br>RESULT:
+          <br><br>
           <div style="max-width: 100%; overflow-x: auto; margin-top: 10px;">
             <iframe style="width: 100%; max-width: 600px; height: 300px; border: none;"
-              src="<iframe style="width: 80vw; height: 50vh; border: none;" src="https://query.wikidata.org/embed.html#SELECT%20%3Fsubject%20%3FsubjectLabel%20%3FinfluencedBy%20%3FinfluencedByLabel%20%0AWHERE%0A%20%7B%20VALUES%20%3Fsubject%20%20%7B%20wd%3AQ36591%20wd%3AQ862%20%7D%20%20%0A%20OPTIONAL%20%7B%20%3Fsubject%20wdt%3AP737%20%3FinfluencedBy%20.%20%7D%0A%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%0AORDER%20BY%20%3FsubjectLabel%0ALIMIT%2050%0A" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>"
-              referrerpolicy="origin"
-              sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+            <iframe style="width: 80vw; height: 50vh; border: none;" src="https://query.wikidata.org/embed.html#SELECT%20%3Fsubject%20%3FsubjectLabel%20%3FinfluencedBy%20%3FinfluencedByLabel%20%0AWHERE%0A%20%7B%20VALUES%20%3Fsubject%20%20%7B%20wd%3AQ36591%20wd%3AQ862%20%7D%20%20%0A%20OPTIONAL%20%7B%20%3Fsubject%20wdt%3AP737%20%3FinfluencedBy%20.%20%7D%0A%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%0AORDER%20BY%20%3FsubjectLabel%0ALIMIT%2050%0A" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups" ></iframe>
           </div>
         </td>
         <td>
@@ -177,6 +175,8 @@ Vladimir Nabokov’s main literary influences were:<br>
 •	Fairy tales, which provided a source of inspiration for novels like Lolita.
  </td>
  </tr>
+      </table>
+      <br>
       While ChatGPT’s answer was concise and identified his key influences, it was also factually incorrect regarding Fitzgerald, whom Nabokov disliked. We preferred Gemini’s more detailed response, which also provided information about Nabokov’s contrarian opinions.
 We decided to focus on Pushkin, Gogol and Tolstoy, his key influences. 
 Sometimes, an author’s influence on another author is expressed through other properties, such as “student of” (P1066), so we decided to run another query, to see which items are linked to the objects Alexander Pushkin (Q7200), Lev Tolstoy (Q43718) and Nikolai Gogol (Q7243) under any property. We added the P31 and Q5 to make sure that the results would be humans and not Wikipedia links or other items. 
