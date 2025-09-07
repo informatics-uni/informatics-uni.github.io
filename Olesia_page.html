@@ -54,6 +54,11 @@
       margin-bottom: 10px;
     }
 
+    h3 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -101,6 +106,16 @@
 <main>
   <h2>GAP 2: Аня в стране чудес (Q108527991)</h2>
 
+  <p>
+    We decided to focus on his translations, which are a very important part of his literary output. 
+    After finding which of Nabokov's translations appear on Wikidata, we decided to focus on his 
+    translation of "Alice's Adventures in Wonderland". We noticed that it missed relevant information, 
+    namely <b>publisher, place of publication,</b> and <b>illustrator</b>. 
+    We used LLM to find the missing information, and to create RDF triples representing that information.
+  </p>
+
+  <h2 style="margin-top: 60px;">QUERIES</h2>
+
   <table>
     <thead>
       <tr>
@@ -111,28 +126,29 @@
     <tbody>
       <tr>
         <td>
-We ran a query to see all items with the property “translator” (P655) and object “Vladimir Nabokov” (Q36591) 
-         
-          </div>
+          We ran a query to see all items with the property “translator” (P655) and object “Vladimir Nabokov” (Q36591).
         </td>
         <td>
 <pre>
 SELECT ?item ?itemLabel
 WHERE { 
-?item wdt:P655 wd:Q36591
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en". } 
+  ?item wdt:P655 wd:Q36591
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en". } 
 }
-</pre> 
-
+</pre>
         </td>
+      </tr>
 
-  
-<tr>
-    <td>
-    <br> We ran a query to retrieve information about “place of publication” (P291), “illustrator” (P110) and “publisher” (P123) for all items that have the property “edition or translation of” (629) and value “Alice’s Adventures in Wonderland” (Q92640). </br>
-      <br> We used the keyword OPTIONAL so the results would include items that didn’t satisfy the requests about publisher, place, and illustrator. </br>
-    </td>
-    <td>
+      <tr>
+        <td>
+          We ran a query to retrieve information about “place of publication” (P291), “illustrator” (P110) 
+          and “publisher” (P123) for all items that have the property “edition or translation of” (P629) 
+          and value “Alice’s Adventures in Wonderland” (Q92640). 
+          <br>
+          We used the keyword OPTIONAL so the results would include items that didn’t satisfy the requests 
+          about publisher, place, and illustrator.
+        </td>
+        <td>
 <pre>
 SELECT ?item ?itemLabel ?publisher ?publisherLabel ?placeofpublication ?placeofpublicationLabel ?illustrator ?illustratorLabel
 WHERE {
@@ -140,21 +156,20 @@ WHERE {
   OPTIONAL { ?item wdt:P123 ?publisher .}  
   OPTIONAL { ?item wdt:P291 ?placeofpublication .}  
   OPTIONAL { ?item wdt:P110 ?illustrator .}  
-SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
 }
 ORDER BY DESC (?itemLabel)
 LIMIT 50
-
 </pre>
-    </td>
-  </tr>
+        </td>
+      </tr>
 
-
- <tr>
-    <td>
-     We encountered another problem: the publisher, Gamaiun, doesn’t have a wikidata profile. We ran a query to confirm this.
-    </td>
-    <td>
+      <tr>
+        <td>
+          We encountered another problem: the publisher, Gamaiun, doesn’t have a Wikidata profile. 
+          We ran a query to confirm this.
+        </td>
+        <td>
 <pre>
 SELECT ?item ?itemLabel 
 WHERE {
@@ -164,18 +179,17 @@ WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
 LIMIT 50
-
 </pre>
-    </td>
-  </tr>
+        </td>
+      </tr>
 
-  <tr>
-    <td>
-   <br> To be sure, we asked an LLM to generate a query that would find any items that match the string “gamaiun”. </br>
-      
-      <br> None of the results were publishing houses. </br>
-    </td>
-    <td>
+      <tr>
+        <td>
+          To be sure, we asked an LLM to generate a query that would find any items that match the string “gamaiun”.
+          <br>
+          None of the results were publishing houses.
+        </td>
+        <td>
 <pre>
 SELECT ?item ?itemLabel WHERE {
   SERVICE wikibase:mwapi {
@@ -188,19 +202,20 @@ SELECT ?item ?itemLabel WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
 }
 LIMIT 50
-
 </pre>
-    </td>
-  </tr>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
+  <h3 style="margin-top: 60px;">LLM PROMPTING</h3>
 
-</tbody>  
-
-We decided to focus on his translations, which are a very important part of his literary output. After finding which of Nabokov's translations appear on Wikidata, we decided to focus on his translation of "Alice's Adventures ni Wonderland". We noticed that it missed relevant information, namely <b>publisher, place of publication, </b> and <b> illustrator </b>. We used LLM to find the missing information, and to create RDF triples representing that information.
-          
-         
-    <h2 style="margin-top: 60px;">QUERIES</h2>
-
+  <p>
+    Both gave us correct and synthetic information regarding the place of publication and the publisher, 
+    but two different answers regarding the illustrator. We checked an external source (Wikipedia), and 
+    found that the correct answer is <b>Serge Chubine Q4185589 (alias Sergei Zalshupin)</b>. 
+    This is an example of an AI <b>hallucination.</b>
+  </p>
 
   <table>
     <thead>
@@ -212,58 +227,29 @@ We decided to focus on his translations, which are a very important part of his 
     </thead>
     <tbody>
       <tr>
+        <td>Where was Nabokov's translation of Alice in Wonderland published, by what publisher and who was the illustrator?</td>
         <td>
-Where was Nabokov's translation of Alice in Wonderland published, by what publisher and who was the illustrator?<br>
-        
-      </td>
-        <td>
-         <br>  Vladimir Nabokov’s Russian translation of Alice’s Adventures in Wonderland was published in <b> Berlin in 1923</b> under the title “Аня в стране чудес” (Anya v strane chudes). </br>
-      <br> •	Publisher: <b> Gamaiun (Гамаюн)</b>, a Russian émigré press in Berlin. </br>
-      <br> •	Illustrations: by <b> Sergey Sudeikin </b>, the Russian painter and set designer associated with the Ballets Russes. </br>
-      <br>
-Would you like me to also compare Nabokov’s translation choices (for instance, how he adapted puns and names) with Carroll’s original?
-    </br>
-        </td>
-        <td>
-        Vladimir Nabokov's translation of Alice in Wonderland, titled Ania v strane chudes ("Anya in Wonderland"), was first published in <b> Berlin in 1923. </b>
+          Vladimir Nabokov’s Russian translation of Alice’s Adventures in Wonderland was published in 
+          <b>Berlin in 1923</b> under the title “Аня в стране чудес” (Anya v strane chudes). 
           <br>
-          The publisher was the Russian émigré publishing house <b> Gamaiun. </b> </br>
-         <br> The illustrations were by <b> Sergei Aleksandrovich Zalshupin </b>, a Russian émigré artist and book illustrator. </br>
-
- </td>
- </tr>
-
-<h2 style="margin-top: 60px;">LLM PROMPTING</h2>
-
-      <table>
-        
-    <br>  Both gave us correct and synthetic information regarding the place of publication and the publisher, but two different answers regarding the illustrator. We checked an external source (Wikipedia), and found that the correct answer is <b> Serge Chubine Q4185589 (alias Sergei Zalshupin) </b> . This is an example of an AI <b> hallucination. </b>  
-        
-        </br>
-    <thead>
-      <tr>
-        <th style="width: 34%;">Question</th>
-        <th style="width: 33%;">ChatGPT</th>
-        <th style="width: 33%;">Gemini</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          
-<br> 
-<br>
-FEW-SHOT PROMPTING
- </td>
-        <td>
-          
+          • Publisher: <b>Gamaiun (Гамаюн)</b>, a Russian émigré press in Berlin. 
+          <br>
+          • Illustrations: by <b>Sergey Sudeikin</b>, the Russian painter and set designer associated with the Ballets Russes.
         </td>
         <td>
-          
+          Vladimir Nabokov's translation of Alice in Wonderland, titled Ania v strane chudes ("Anya in Wonderland"), 
+          was first published in <b>Berlin in 1923</b>. 
+          <br>
+          The publisher was the Russian émigré publishing house <b>Gamaiun.</b> 
+          <br>
+          The illustrations were by <b>Sergei Aleksandrovich Zalshupin</b>, a Russian émigré artist and book illustrator.
         </td>
       </tr>
-      
-      <tr><td></td><td></td><td></td></tr>
+      <tr>
+        <td>FEW-SHOT PROMPTING</td>
+        <td></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
 
