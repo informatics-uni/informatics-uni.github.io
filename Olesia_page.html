@@ -127,6 +127,7 @@
       <tr>
         <td>
           We ran a query to see all items with the property “translator” (P655) and object “Vladimir Nabokov” (Q36591).
+          <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fitem%20%3FitemLabel%0AWHERE%20%7B%20%0A%20%20%3Fitem%20wdt%3AP655%20wd%3AQ36591%0A%20%20SERVICE%20wikibase%3Alabel%20%7Bbd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%0A%7D">RESULTS</a> </p>
         </td>
         <td>
 <pre>
@@ -147,6 +148,8 @@ WHERE {
           <br>
           We used the keyword OPTIONAL so the results would include items that didn’t satisfy the requests 
           about publisher, place, and illustrator.
+          
+         <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fitem%20%3FitemLabel%20%3Fpublisher%20%3FpublisherLabel%20%3Fplaceofpublication%20%3FplaceofpublicationLabel%20%3Fillustrator%20%3FillustratorLabel%0AWHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP629%20wd%3AQ92640%20.%20%20%20%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP123%20%3Fpublisher%20.%7D%20%20%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP291%20%3Fplaceofpublication%20.%7D%20%20%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP110%20%3Fillustrator%20.%7D%20%20%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%0AORDER%20BY%20DESC%20(%3FitemLabel)%0ALIMIT%2050">RESULTS</a> </p> 
         </td>
         <td>
 <pre>
@@ -168,6 +171,8 @@ LIMIT 50
         <td>
           We encountered another problem: the publisher, Gamaiun, doesn’t have a Wikidata profile. 
           We ran a query to confirm this.
+          
+          <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fitem%20%3FitemLabel%20%0AWHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP31%20wd%3AQ2085381%20.%20%20%20%20%20%20%20%20%0A%20%20%3Fitem%20rdfs%3Alabel%20%3Flabel%20.%20%20%20%20%20%20%20%20%20%20%20%0A%20%20FILTER(REGEX(%3Flabel%2C%20%22gamaiun%22%2C%20%22i%22))%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0ALIMIT%2050">RESULTS</a> </p> 
         </td>
         <td>
 <pre>
@@ -186,6 +191,8 @@ LIMIT 50
       <tr>
         <td>
           To be sure, we asked an LLM to generate a query that would find any items that match the string “gamaiun”.
+          
+         <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fitem%20%3FitemLabel%20WHERE%20%7B%0A%20%20SERVICE%20wikibase%3Amwapi%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aendpoint%20%22www.wikidata.org%22%20.%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aapi%20%22EntitySearch%22%20.%0A%20%20%20%20bd%3AserviceParam%20mwapi%3Asearch%20%22gamaiun%22%20.%0A%20%20%20%20bd%3AserviceParam%20mwapi%3Alanguage%20%22en%22%20.%0A%20%20%20%20%3Fitem%20wikibase%3AapiOutputItem%20mwapi%3Aitem%20.%0A%20%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%0ALIMIT%2050">RESULTS</a> </p>  
           <br>
           None of the results were publishing houses.
         </td>
