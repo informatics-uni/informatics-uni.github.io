@@ -256,70 +256,18 @@ VALUES ?item
     </tbody>
   </table>
 
-  <p> 
-    We guided ChatGPT towards the correct answer using <b> CHAIN OF THOUGHT PROMPTING. </b>
-  </p>
-
-  <table>
-    <tbody>
-      <tr>
-        <td>
-          <b> Q: </b>  Sergey Sudeikin was mainly a scenographer and not an illustrator, and he worked mainly in Paris, so could he have illustrated a book published in Berlin? Let's think step by step, considering all the Russian emigre illustrators that were active in Berlin in 1923. 
-        </td>
-        <td>
-          You’re absolutely right to be skeptical about Sergei Sudeikin. He was indeed primarily a scenographer and painter, based in Paris by the early 1920s, and there’s no evidence that he worked on Nabokov’s Alice in Berlin.
-          <p> The illustrator of Nabokov’s 1923 Аня в стране чудес (Anya v strane chudes) was in fact <b>Sergei Aleksandrovich Zalshupin </b> (1898–1931), also known under the pseudonym Serg Choubine (Серж Шубин). </p>
-          Here are the details step by step:
-          <p>• Publisher: Издательство Гамаюн (Gamayun), a Russian émigré press in Berlin.</p>
-          <p>• Year: 1923.</p>
-          <p>• Illustrator: Sergei Zalshupin, a Russian émigré graphic artist and painter who was active in Berlin at the time (later moved to Paris, where he died young).</p>
-          <p>• Why not Sudeikin? Sudeikin was by then working mainly as a set designer in Paris (for Diaghilev’s Ballets Russes and later the Metropolitan Opera). He was not involved with Berlin publishing houses of the émigré community.</p>
-          So the correct bibliographic entry is:
-          Lewis Carroll (pseud. Charles Dodgson). Аня в стране чудес. Перевод В. В. Набокова. Берлин: Гамаюн, 1923. Иллюстрации Сергея Залшупина.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
   <h2 style="margin-top: 60px;">RDF TRIPLES</h2>
 
-  After creating a Wikidata entity for Gamaiun, we asked ChatGPt to generate RDF triples for these statementes, supplying it with the correct QIDs from the start.  
+  After deciding to use "significant even" (P793), we asked ChatGPT to generate an RDF triple of that statement, supplying it with the correct QIDs.  
 
   <table>
     <tbody>
       <tr>
         <td>
-          Аня в стране чудес was published in Berlin.
+          Vladimir Nabokov had the significant event of being a white emigre.
         </td>
-        <td colspan="2">
-<pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
-@prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
-@prefix p: &lt;http://www.wikidata.org/prop/&gt; .
-@prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
-@prefix prov: &lt;http://www.w3.org/ns/prov#&gt; .
-@prefix pr: &lt;http://www.wikidata.org/prop/reference/&gt; .
-@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
-
-# Main simplified statement: Аня в стране чудес was published in Berlin
-wd:Q108527991 wdt:P291 wd:Q64 .
-
-# Full statement form with reference
-wd:Q108527991 p:P291 [
-    ps:P291 wd:Q64 ;
-    prov:wasDerivedFrom [
-        pr:P248 wd:Q52 ;   # Source: English Wikipedia (Q52)
-        pr:P813 "2025-09-06"^^xsd:date ;   # Retrieval date
-        pr:P854 &lt;https://en.wikipedia.org/wiki/Anya_v_strane_chudes&gt;  # External reference URL
-    ]
-] .</code></pre>
-        </td>
-      </tr>
-      <tr>
         <td>
-          Аня в стране чудес was published by Gamaiun.
-        </td>
-        <td colspan="2">
-<pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+       <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
 @prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
 @prefix p: &lt;http://www.wikidata.org/prop/&gt; .
 @prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
@@ -327,47 +275,20 @@ wd:Q108527991 p:P291 [
 @prefix pr: &lt;http://www.wikidata.org/prop/reference/&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 
-# Main simplified statement: Аня в стране чудес was published by Gamaiun
-wd:Q108527991 wdt:P123 wd:Q136126224 .
+# Main statement: Nabokov has significant event White émigré
+wd:Q36591 wdt:P793 wd:Q152538 .
 
-# Full statement form with reference
-wd:Q108527991 p:P123 [
-    ps:P123 wd:Q136126224 ;
+# Full statement with reference
+wd:Q36591 p:P793 [
+    ps:P793 wd:Q152538 ;
     prov:wasDerivedFrom [
-        pr:P248 wd:Q52 ;   # Source: English Wikipedia (Q52 = enwiki)
-        pr:P813 "2025-09-06"^^xsd:date ;   # Retrieval date
-        pr:P854 &lt;https://en.wikipedia.org/wiki/Anya_v_strane_chudes&gt;  # External reference URL
+        pr:P248 wd:Q52 ;                             
+        pr:P813 "2025-09-04"^^xsd:date ;                 #Retrieval date
+        pr:P854 &lt;https://en.wikipedia.org/wiki/White_%C3%A9migr%C3%A9&gt;  # External source URL
     ]
 ] .</code></pre>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Аня в стране чудес was illustrated by Serge Chubine.
-        </td>
-        <td colspan="2">
-<pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
-@prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
-@prefix p: &lt;http://www.wikidata.org/prop/&gt; .
-@prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
-@prefix prov: &lt;http://www.w3.org/ns/prov#&gt; .
-@prefix pr: &lt;http://www.wikidata.org/prop/reference/&gt; .
-@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 
-# Main simplified statement: Аня в стране чудес was illustrated by Serge Chubine
-wd:Q108527991 wdt:P110 wd:Q4185589 .
 
-# Full statement form with reference
-wd:Q108527991 p:P110 [
-    ps:P110 wd:Q4185589 ;
-    prov:wasDerivedFrom [
-        pr:P248 wd:Q52 ;   # Source: English Wikipedia (Q52 = enwiki)
-        pr:P813 "2025-09-06"^^xsd:date ;   # Retrieval date
-        pr:P854 &lt;https://en.wikipedia.org/wiki/Anya_v_strane_chudes&gt;  # External reference URL
-    ]
-] .</code></pre>
-        </td>
-      </tr>
     </tbody>
   </table>
 </main>
