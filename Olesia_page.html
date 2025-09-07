@@ -111,8 +111,7 @@
     <tbody>
       <tr>
         <td>
-We noticed that the object under “influenced by” (P737) is deprecated. On wikidata, a triple statement can be deprecated for a variety, such as being no longer true or having an unreliable source, such as this case. As a result, it doesn’t show up when you query it. 
-To be sure, we ran a query, comparing Nabokov’s information with that of a similar writer, Joseph Brodsky (Q862), to see which objects they have under the property “influenced by” (P737). We used the keyword OPTIONAL so the results would show up even if the triple pattern doesn’t exist. 
+We ran a query to see all items with the property “translator” (P655) and object “Vladimir Nabokov” (Q36591) 
           <br><br>RESULT:
           <div style="max-width: 100%; overflow-x: auto; margin-top: 10px;">
             <iframe style="width: 100%; max-width: 600px; height: 300px; border: none;"
@@ -123,13 +122,12 @@ To be sure, we ran a query, comparing Nabokov’s information with that of a sim
         </td>
         <td>
 <pre>
-SELECT ?subject ?subjectLabel ?influencedBy ?influencedByLabel 
-WHERE
- { VALUES ?subject  { wd:Q36591 wd:Q862 }  
- OPTIONAL { ?subject wdt:P737 ?influencedBy . }
- SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } }
-ORDER BY ?subjectLabel
-LIMIT 50
+SELECT ?item ?itemLabel
+WHERE { 
+?item wdt:P655 wd:Q36591
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en". } 
+}
+
 </pre>
         </td>
       </tr>
