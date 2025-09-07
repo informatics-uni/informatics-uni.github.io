@@ -294,26 +294,84 @@ Lewis Carroll (pseud. Charles Dodgson). Аня в стране чудес. Пе�
   <tbody>
     <tr>
       <td>
-        First row, first cell
+        Аня в стране чудес was published in Berlin.
       </td>
-      <td>
-        First row, second cell
+         <td colspan="2">
+        <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+@prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
+@prefix p: &lt;http://www.wikidata.org/prop/&gt; .
+@prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
+@prefix prov: &lt;http://www.w3.org/ns/prov#&gt; .
+@prefix pr: &lt;http://www.wikidata.org/prop/reference/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# Main simplified statement: Аня в стране чудес was published in Berlin
+wd:Q108527991 wdt:P291 wd:Q64 .
+
+# Full statement form with reference
+wd:Q108527991 p:P291 [
+    ps:P291 wd:Q64 ;
+    prov:wasDerivedFrom [
+        pr:P248 wd:Q52 ;   # Source: English Wikipedia (Q52)
+        pr:P813 "2025-09-06"^^xsd:date ;   # Retrieval date
+        pr:P854 &lt;https://en.wikipedia.org/wiki/Anya_v_strane_chudes&gt;  # External reference URL
+    ]
+] .</code></pre>
+
       </td>
     </tr>
     <tr>
       <td>
-        Second row, first cell
+        Аня в стране чудес was published by Gamaiun.
       </td>
-      <td>
-        Second row, second cell
+      <td colspan="2">
+        <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+@prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
+@prefix p: &lt;http://www.wikidata.org/prop/&gt; .
+@prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
+@prefix prov: &lt;http://www.w3.org/ns/prov#&gt; .
+@prefix pr: &lt;http://www.wikidata.org/prop/reference/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# Main simplified statement: Аня в стране чудес was published by Gamaiun
+wd:Q108527991 wdt:P123 wd:Q136126224 .
+
+# Full statement form with reference
+wd:Q108527991 p:P123 [
+    ps:P123 wd:Q136126224 ;
+    prov:wasDerivedFrom [
+        pr:P248 wd:Q52 ;   # Source: English Wikipedia (Q52 = enwiki)
+        pr:P813 "2025-09-06"^^xsd:date ;   # Retrieval date
+        pr:P854 &lt;https://en.wikipedia.org/wiki/Anya_v_strane_chudes&gt;  # External reference URL
+    ]
+] .</code></pre>
       </td>
     </tr>
     <tr>
       <td>
-        Third row, first cell
+        Аня в стране чудес was illustrated by Serge Chubine.
       </td>
-      <td>
-        Third row, second cell
+      <td colspan="2">
+        <pre><code>@prefix wd: &lt;http://www.wikidata.org/entity/&gt; .
+@prefix wdt: &lt;http://www.wikidata.org/prop/direct/&gt; .
+@prefix p: &lt;http://www.wikidata.org/prop/&gt; .
+@prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt; .
+@prefix prov: &lt;http://www.w3.org/ns/prov#&gt; .
+@prefix pr: &lt;http://www.wikidata.org/prop/reference/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# Main simplified statement: Аня в стране чудес was illustrated by Serge Chubine
+wd:Q108527991 wdt:P110 wd:Q4185589 .
+
+# Full statement form with reference
+wd:Q108527991 p:P110 [
+    ps:P110 wd:Q4185589 ;
+    prov:wasDerivedFrom [
+        pr:P248 wd:Q52 ;   # Source: English Wikipedia (Q52 = enwiki)
+        pr:P813 "2025-09-06"^^xsd:date ;   # Retrieval date
+        pr:P854 &lt;https://en.wikipedia.org/wiki/Anya_v_strane_chudes&gt;  # External reference URL
+    ]
+] .</code></pre>
       </td>
     </tr>
   </tbody>
