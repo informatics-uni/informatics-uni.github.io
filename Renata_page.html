@@ -99,7 +99,7 @@
 </header>
 
 <main>
-  <h2>SPARQL</h2>
+  <h2>IDENTIFYING THE GAPS</h2>
 
   <table>
     <thead>
@@ -134,75 +134,11 @@ LIMIT 50
         </td>
       </tr>
 
-      <tr>
-        <td>
-          The second query retrieves castles and cathedrals located in Italy, optionally showing their Commons categories and types.
+          Having identified this gap, we asked ChatGPT and Gemini what Nabokov’s main influences were, using a FEW SHOT PROMPTING technique, providing it examples to follow.  
           <br><br>RESULT:
-          <div style="max-width: 100%; overflow-x: auto;">
-            <iframe style="width: 100%; max-width: 600px; height: 300px; border: none;" 
-              src="https://query.wikidata.org/embed.html#SELECT%20DISTINCT%20%3Fitem%20%3FitemLabel%20%3FtypeLabel%20%3FcommonsCategory%20WHERE%20%7B%0A%20%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ23413.%20%20%23%20castles%0A%20%20%7D%0A%20%20UNION%0A%20%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ2977.%20%20%20%23%20cathedrals%0A%20%20%7D%0A%20%20%3Fitem%20wdt%3AP17%20wd%3AQ38.%20%20%20%20%20%20%20%23%20country%20%3D%20Italy%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP373%20%3FcommonsCategory.%20%7D%20%20%23%20Wikimedia%20Commons%20category%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP31%20%3Ftype.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%2Cit%22.%20%7D%0A%7D%0ALIMIT%2050" 
-              referrerpolicy="origin" 
-              sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
-          </div>
-        </td>
-        <td>
-<pre>
-SELECT DISTINCT ?item ?itemLabel ?typeLabel ?commonsCategory WHERE {
-  {
-    ?item wdt:P31 wd:Q23413.  # castles
-  }
-  UNION
-  {
-    ?item wdt:P31 wd:Q2977.   # cathedrals
-  }
-  ?item wdt:P17 wd:Q38.       # country = Italy
-  OPTIONAL { ?item wdt:P373 ?commonsCategory. }  # Wikimedia Commons category
-  OPTIONAL { ?item wdt:P31 ?type. }
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it". }
-}
-LIMIT 50
-</pre>
-        </td>
-      </tr>
+          
+        
 
-      <tr>
-        <td>
-          This query filters items labelled as "Teatro" or "Duomo" in Italian.
-          <br></br> RESULT:
-          <div style="max-width: 100%; overflow-x: auto;">
-          <iframe style="width: 100%; max-width: 600px; height: 300px; border: none;"
-          src="https://query.wikidata.org/embed.html#SELECT%20DISTINCT%20%3Fitem%20%3FitemLabel%20%3FtypeLabel%20WHERE%20%7B%0A%20%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ24354.%20%20%23%20theatres%0A%20%20%7D%0A%20%20UNION%0A%20%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ2977.%20%20%20%23%20cathedrals%0A%20%20%7D%0A%0A%20%20%3Fitem%20wdt%3AP17%20wd%3AQ38.%20%20%20%20%20%20%20%23%20country%20%3D%20Italy%0A%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP31%20%3Ftype.%20%7D%0A%0A%20%20%3Fitem%20rdfs%3Alabel%20%3Flabel%20.%0A%20%20FILTER%20(LANG(%3Flabel)%20%3D%20%22it%22)%0A%20%20FILTER(REGEX(%3Flabel%2C%20%22Teatro%7CDuomo%22%2C%20%22i%22))%0A%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0AORDER%20BY%20%3FitemLabel%0ALIMIT%2050%0A" 
-                      referrerpolicy="origin" 
-                      sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
-        </td>
-        <td>
-<pre>
-SELECT DISTINCT ?item ?itemLabel ?typeLabel WHERE {
-  {
-    ?item wdt:P31 wd:Q24354.  # theatres
-  }
-  UNION
-  {
-    ?item wdt:P31 wd:Q2977.   # cathedrals
-  }
-
-  ?item wdt:P17 wd:Q38.       # country = Italy
-
-  OPTIONAL { ?item wdt:P31 ?type. }
-
-  ?item rdfs:label ?label .
-  FILTER (LANG(?label) = "it")
-  FILTER(REGEX(?label, "Teatro|Duomo", "i"))
-
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-}
-ORDER BY ?itemLabel
-LIMIT 50
-</pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 
   <h2 style="margin-top: 60px;">PROMPTING TECHNIQUES</h2>
 
