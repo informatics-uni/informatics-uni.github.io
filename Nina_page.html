@@ -176,6 +176,9 @@ While the exile from Russia fundamentally altered the course of his life and gav
       <tr>
         <td>
          We ran a query to see all the items that have the property “subclass of” (P279) and object “russian emigration” (Q4400561), to figure out what QID to use. 
+          
+          <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fitem%20%3FitemLabel%20%0AWHERE%20%0A%7B%0A%20%3Fitem%20wdt%3AP279%20wd%3AQ4400561%0A%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D">RESULTS</a> </p>
+ 
         </td>
         <td>
 <pre>
@@ -193,6 +196,9 @@ WHERE
       <tr>
         <td>
          The most relevant result was "White emigre" (Q152538). We ran a query to see under which property this item is usually used, adding Q5 ("human") to avoid results like political movements, establishments, etc.
+          
+           <p> <a href="https://query.wikidata.org/embed.html#SELECT%20DISTINCT%20%3Fitem%20%3FitemLabel%20%0AWHERE%20%7B%0A%20%20%3Fitem%20%3Fproperty1%20wd%3AQ152538.%0A%20%20%3Fitem%20%3Fproperty2%20wd%3AQ5.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0AORDER%20BY%20DESC(%3Fitem)%0ALIMIT%20100">RESULTS</a> </p>
+  
         </td>
         <td>
 <pre>
@@ -213,6 +219,8 @@ LIMIT 100
       <tr>
         <td>
        This query was fine, but it included a lot of Wikimedia categories, so we ran the same query adding a FILTER to exclude “instance of” (P31) “wikimedia category” (Q4167836).
+          
+           <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fitem%20%3FitemLabel%20%0AWHERE%20%7B%0A%20%20%3Fitem%20%3Fproperty1%20wd%3AQ5.%0A%20%20%3Fitem%20%3Fproperty2%20wd%3AQ152538.%0A%20%20FILTER%20NOT%20EXISTS%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ4167836.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0AORDER%20BY%20DESC(%3Fitem)%0ALIMIT%20100">RESULTS</a> </p> 
         </td>
         <td>
 <pre>
@@ -233,7 +241,10 @@ LIMIT 100
       <tr>
         <td>
         This gave us six examples of usage, but they all used different properties to express this relation, like “political movement”, so we ran another query to see which property was most common.
+          
+           <p> <a href="https://query.wikidata.org/embed.html#SELECT%20%3Fproperty%20%3FpropertyLabel%20%0AWHERE%20%7B%0AVALUES%20%3Fitem%20%0A%20%20%7Bwd%3AQ9336695%20%0A%20%20%20wd%3AQ6429933%20%0A%20%20%20wd%3AQ4524939%20%0A%20%20%20wd%3AQ4139731%20%0A%20%20%20wd%3AQ28359326%20%0A%20%20%20wd%3AQ108041835%7D%0A%20%20%3Fitem%20%3Fproperty%20wd%3AQ152538.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D">RESULTS</a> </p> 
           <p> We found that P793 ("significant event") was slightly more common. </p>
+         
         </td>
         <td>
 <pre>
